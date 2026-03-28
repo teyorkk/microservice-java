@@ -1,0 +1,12 @@
+{
+  "java.compile.nullAnalysis.mode": "automatic",
+  "java.configuration.updateBuildConfiguration": "interactive",
+  "vscode_custom_css.imports": [
+    "file:///C:/Users/moises%20theo/Downloads/article/custom-vscode.css"
+  ],
+  "editor.fontSize": 16,
+  "editor.fontFamily": "Fira Code, JetBrains Mono, Cascadia Code, Consolas, 'Courier New', monospace",
+  "editor.fontVariations": true
+}
+//file seedling theme idx
+// enable css and js

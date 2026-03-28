@@ -1,0 +1,14 @@
+.monaco-workbench {
+  font-family: "Fira Code", monospace !important;
+}
+
+.explorer-viewlet {
+  font-family: "Fira Code", monospace !important;
+}
+.monaco-tl-twistie {
+  opacity: 0 !important;
+}
+
+.monaco-tl-indent {
+  margin-left: 8px !important;
+}
