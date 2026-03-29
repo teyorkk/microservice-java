@@ -34,7 +34,7 @@ public class JwtService {
         try {
             return !isTokenExpired(token);
         } catch (RuntimeException e) {
-            throw new RuntimeException("Token not valid");
+            return false;
         }
     }
 
