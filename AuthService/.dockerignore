@@ -1,0 +1,23 @@
+# Git
+.git
+.gitignore
+
+# Docker
+.dockerignore
+docker-compose.yml
+
+# IDEs and OS files
+.idea/
+.vscode/
+*.iml
+.DS_Store
+
+# Build directories and local compiled code
+# We ignore these because Stage 1 of our Dockerfile builds a fresh one anyway!
+target/
+build/
+*.jar
+*.class
+
+# Logs
+*.log

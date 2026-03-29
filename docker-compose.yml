@@ -1,0 +1,43 @@
+services:
+  shared-postgres:
+    image: postgres:15-alpine
+    container_name: shared_db_server
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_MULTIPLE_DATABASES: auth,movie,watch
+    volumes:
+      - ./init-multiple-db.sh:/docker-entrypoint-initdb.d/init-multiple-dbs.sh
+      - postgres_data:/var/lib/postgresql/data
+
+  pgadmin_web:
+    image: dpage/pgadmin4
+    container_name: shared_pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: 123
+    ports:
+      - "5050:80"
+    depends_on:
+      - shared-postgres
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin/data
+
+  auth-service:
+    build: ./auth-service
+    container_name: auth_backend
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://shared-postgres:5432/${POSTGRES_AUTHDB}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+      JWT_SECRET: ${JWT_SECRET}
+    depends_on:
+      - shared-postgres
+
+volumes:
+  pgadmin_data:
+  postgres_data:
