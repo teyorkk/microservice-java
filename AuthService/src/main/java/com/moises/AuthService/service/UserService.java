@@ -26,7 +26,7 @@ public class UserService {
     private final AuthenticationManager authenticationManager;
 
     public AuthResponse register(AuthRequest req) {
-        if (repo.existByEmail(req.getEmail())) {
+        if (repo.existsByEmail(req.getEmail())) {
             throw new DuplicateResourceException("User already exists");
         }
         User user = User.builder()

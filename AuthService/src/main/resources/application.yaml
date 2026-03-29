@@ -7,7 +7,7 @@ spring:
     url: jdbc:postgresql://localhost:5432/${POSTGRES_AUTHDB}
     username: ${POSTGRES_USER}
     password: ${POSTGRES_PASSWORD}
-    driver-class-name: org.postgresql.driver
+    driver-class-name: org.postgresql.Driver
 
   flyway:
     enabled: true
