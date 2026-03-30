@@ -23,6 +23,7 @@ public class JwtService {
 
     public JwtService(@Value("${jwt.secret}") String secretKey) {
         this.secretKey = secretKey;
+
     }
 
     public String generateToken(UserDetails userDetails) {
