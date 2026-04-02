@@ -20,8 +20,6 @@ spring:
     database: postgresql
   application:
     name: watchservice
-server:
-  port: 8082
 jwt:
   secret: ${JWT_SECRET}
 application:
