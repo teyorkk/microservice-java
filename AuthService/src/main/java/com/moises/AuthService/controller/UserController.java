@@ -19,6 +19,7 @@ import com.moises.AuthService.service.UserService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/api/users")
@@ -28,13 +29,18 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/register")
-    public ResponseEntity<AuthResponse> register(@Valid @RequestBody AuthRequest request) {
+    public ResponseEntity<String> register(@Valid @RequestBody AuthRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.register(request));
     }
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@Valid @RequestBody AuthRequest request) {
         return ResponseEntity.ok(userService.login(request));
+    }
+
+    @GetMapping("/verify")
+    public ResponseEntity<String> verify(@RequestParam String token) {
+        return ResponseEntity.ok((userService.verifyAccount(token)));
     }
 
     @GetMapping

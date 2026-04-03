@@ -36,6 +36,9 @@ public class User implements UserDetails {
     private String email;
     private String password;
 
+    @Builder.Default
+    private boolean isVerified = false;
+
     @Enumerated(EnumType.STRING)
     @JdbcTypeCode(SqlTypes.NAMED_ENUM)
     private Role role;

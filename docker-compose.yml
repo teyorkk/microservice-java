@@ -17,19 +17,6 @@ services:
       timeout: 3s
       retries: 10
 
-  pgadmin_web:
-    image: dpage/pgadmin4
-    container_name: shared_pgadmin
-    environment:
-      PGADMIN_DEFAULT_EMAIL: admin@admin.com
-      PGADMIN_DEFAULT_PASSWORD: 123
-    ports:
-      - "5050:80"
-    depends_on:
-      - shared-postgres
-    volumes:
-      - pgadmin_data:/var/lib/pgadmin/data
-
   auth-service:
     build: ./authservice
     container_name: auth_backend
@@ -40,6 +27,8 @@ services:
       SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
       SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
       JWT_SECRET: ${JWT_SECRET}
+      MAIL_USERNAME: ${MAIL_USERNAME}
+      MAIL_PASSWORD: ${MAIL_PASSWORD}
     depends_on:
       shared-postgres:
         condition: service_healthy
@@ -58,6 +47,20 @@ services:
       shared-postgres:
         condition: service_healthy
 
+  watches-service:
+    build: ./watchservice
+    container_name: watch_backend
+    ports:
+      - "8082:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://shared-postgres:5432/${POSTGRES_WATCHLISTDB}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+      JWT_SECRET: ${JWT_SECRET}
+      MOVIE_SERVICE_URL: ${MOVIE_SERVICE_URL}
+    depends_on:
+      shared-postgres:
+        condition: service_healthy
 volumes:
   pgadmin_data:
   postgres_data:
