@@ -34,7 +34,7 @@ jobs:
     needs: build-and-test
     strategy:
       matrix:
-        service: [authservice, movieservice, watchservice]
+        service: [AuthService, movieservice, watchservice]
     steps:
       - uses: actions/checkout@v4
       - name: Build Docker Image
