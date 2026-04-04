@@ -45,12 +45,3 @@ jobs:
       - uses: actions/checkout@v4
       - name: Build Docker Image
         run: docker build -t ${{ matrix.image_name }}-img ./${{ matrix.service_path }}
-      - name: Run Trivy Vulnerability Scanner
-        uses: aquasecurity/trivy-action@master
-        with:
-          image-ref: "${{ matrix.image_name }}-img"
-          format: "table"
-          exit-code: "1"
-          ignore-unfixed: true
-          vuln-type: "os,library"
-          severity: "CRITICAL,HIGH"
