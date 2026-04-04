@@ -18,7 +18,7 @@ services:
       retries: 10
 
   auth-service:
-    build: ./authservice
+    build: ./AuthService
     container_name: auth_backend
     ports:
       - "8080:8080"
