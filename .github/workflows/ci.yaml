@@ -34,15 +34,21 @@ jobs:
     needs: build-and-test
     strategy:
       matrix:
-        service: [AuthService, movieservice, watchservice]
+        include:
+          - service_path: AuthService
+            image_name: authservice
+          - service_path: movieservice
+            image_name: movieservice
+          - service_path: watchservice
+            image_name: watchservice
     steps:
       - uses: actions/checkout@v4
       - name: Build Docker Image
-        run: docker build -t ${{ matrix.service }}-img ./${{ matrix.service }}
+        run: docker build -t ${{ matrix.image_name }}-img ./${{ matrix.service_path }}
       - name: Run Trivy Vulnerability Scanner
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: "${{ matrix.service }}-img"
+          image-ref: "${{ matrix.image_name }}-img"
           format: "table"
           exit-code: "1"
           ignore-unfixed: true
