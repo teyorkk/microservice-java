@@ -1,4 +1,4 @@
-package com.moises.watchservice.exceptions;
+package com.moises.watchservice.controller;
 
 import java.time.Instant;
 import java.util.LinkedHashMap;
@@ -12,9 +12,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.moises.watchservice.dto.ErrorResponse;
+import com.moises.watchservice.exceptions.ResourceNotFoundException;
 
 @RestControllerAdvice
-public class GlobalRestAdvice {
+public class RestControllerExceptionHandler {
 
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleResourceNotFound(ResourceNotFoundException ex) {
